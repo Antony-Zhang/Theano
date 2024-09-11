@@ -1025,7 +1025,8 @@ class ScalarOp(Op):
     def __init__(self, output_types_preference=None, name=None):
         self.name = name
         if output_types_preference is not None:
-            if not isinstance(output_types_preference, collections.Callable):
+            # if not isinstance(output_types_preference, collections.Callable):
+            if not callable(output_types_preference):   # Py3.10
                 raise TypeError(
                     "Expected a callable for the 'output_types_preference' argument to %s. (got: %s)" %
                     (self.__class__, output_types_preference))
@@ -2253,7 +2254,8 @@ class Cast(UnaryScalarOp):
             raise TypeError(o_type)
         super(Cast, self).__init__(specific_out(o_type), name=name)
         self.o_type = o_type
-        self.ctor = getattr(numpy, o_type.dtype)
+        # self.ctor = getattr(numpy, o_type.dtype)
+        self.ctor = numpy.dtype(o_type.dtype).type   #  update for current numpy 
 
     def __str__(self):
         return '%s{%s}' % (self.__class__.__name__, self.o_type.dtype)

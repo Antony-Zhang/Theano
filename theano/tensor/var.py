@@ -472,7 +472,7 @@ class _tensor_py_operators(object):
                 pass
 
             if (not isinstance(args_el, theano.tensor.Variable) and
-                    isinstance(args_el, collections.Iterable)):
+                    isinstance(args_el, collections.abc.Iterable)): # Py 10
                 for el in args_el:
                     check_bool(el)
 

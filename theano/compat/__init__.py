@@ -37,7 +37,8 @@ if PY3:
             return unbound.__func__
         return unbound
 
-    from collections import OrderedDict, MutableMapping as DictMixin
+    from collections import OrderedDict
+    from collections.abc import MutableMapping as DictMixin # Python 3.10
 
     def decode(x):
         return x.decode()
@@ -76,7 +77,8 @@ __all__ += ['cmp', 'operator_div', 'DictMixin', 'OrderedDict', 'decode',
 class DefaultOrderedDict(OrderedDict):
     def __init__(self, default_factory=None, *a, **kw):
         if (default_factory is not None and
-                not isinstance(default_factory, collections.Callable)):
+                # not isinstance(default_factory, collections.Callable)):
+                not callable(default_factory)): # Py3.10
             raise TypeError('first argument must be callable')
         OrderedDict.__init__(self, *a, **kw)
         self.default_factory = default_factory

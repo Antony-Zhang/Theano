@@ -2,11 +2,12 @@
 
 from __future__ import absolute_import, print_function, division
 import collections
+from collections.abc import Mapping # Py3.10
 import operator
 import functools
 
 
-class frozendict(collections.Mapping):
+class frozendict(Mapping):
     """
     An immutable wrapper around dictionaries that implements the complete :py:class:`collections.Mapping`
     interface. It can be used as a drop-in replacement for dictionaries where immutability and ordering are desired.

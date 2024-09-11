@@ -1,6 +1,7 @@
 from __future__ import absolute_import, print_function, division
 
-from collections import MutableSet
+# from collections import MutableSet
+from collections.abc import MutableSet  # Py3.10
 import types
 import weakref
 
